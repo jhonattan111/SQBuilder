@@ -6,6 +6,9 @@ namespace SQBuilder.Tests
     [TestClass]
     public class Select
     {
+        [TestCategory("Select")]
+        [TestCategory("From")]
+        [TestCategory("Where")]
         [TestMethod]
         public void SelectFromWhere()
         {
@@ -19,6 +22,8 @@ namespace SQBuilder.Tests
                             "WHERE Id = 1", query.ToString());
         }
 
+        [TestCategory("Select")]
+        [TestCategory("From")]
         [TestMethod]
         public void SelectFrom()
         {
@@ -31,6 +36,10 @@ namespace SQBuilder.Tests
                             "FROM dbo.Table1 P", query.ToString());
         }
 
+        [TestCategory("Select")]
+        [TestCategory("From")]
+        [TestCategory("InnerJoin")]
+        [TestCategory("Where")]
         [TestMethod]
         public void SelectFromInnerJoinWhere()
         {
@@ -45,6 +54,10 @@ namespace SQBuilder.Tests
                             "INNER JOIN dbo.Table2 C ON C.Id = P.ColumnId", query.ToString());
         }
 
+        [TestCategory("Select")]
+        [TestCategory("From")]
+        [TestCategory("leftJoin")]
+        [TestCategory("Where")]
         [TestMethod]
         public void SelectFromLeftJoinWhere()
         {
@@ -59,6 +72,9 @@ namespace SQBuilder.Tests
                             "LEFT JOIN dbo.Table2 C ON C.Id = P.ColumnId", query.ToString());
         }
 
+        [TestCategory("Select")]
+        [TestCategory("From")]
+        [TestCategory("WhereIn")]
         [TestMethod]
         public void SelectFromWhereInString()
         {
@@ -73,6 +89,9 @@ namespace SQBuilder.Tests
                             "WHERE P.Id IN ('1', '2', '3', '4', '5', '6', '7')", query.ToString());
         }
 
+        [TestCategory("Select")]
+        [TestCategory("From")]
+        [TestCategory("WhereIn")]
         [TestMethod]
         public void SelectFromWhereInInt()
         {
