@@ -36,7 +36,7 @@ namespace SQBuilder
 		/// <param name="condition"></param>
 		public SQBuilder Where(List<string> content, string column)
 		{
-			string list = string.Join("', '", content);
+			var list = string.Join("', '", content);
 
 			if (content.Count > 0)
 				_where.Add($"{column} IN ('{list}')");
@@ -53,7 +53,39 @@ namespace SQBuilder
 		{
 			var list = content.Select(d => d.ToString()).ToList();
 
-			return this.Where(list, column);
+			this.Where(list, column);
+
+			return this;
+		}
+
+		/// <summary>
+		/// Adicione uma lista que será colocada em uma cláusula IN, a classe adiciona a instrução WHERE
+		/// </summary>
+		/// <param name="content"></param>
+		/// <param name="condition"></param>
+		public SQBuilder Where(List<string> content, string column, bool condition)
+		{
+			if (condition)
+				this.Where(content, column);
+
+			return this;
+		}
+
+		/// <summary>
+		/// Adicione uma lista que será colocada em uma cláusula IN, a classe adiciona a instrução WHERE
+		/// </summary>
+		/// <param name="content"></param>
+		/// <param name="condition"></param>
+		public SQBuilder Where(List<int> content, string column, bool condition)
+		{
+			if (condition)
+            {
+				var list = content.Select(d => d.ToString()).ToList();
+
+				this.Where(list, column);
+			}
+
+			return this;
 		}
 	}
 }

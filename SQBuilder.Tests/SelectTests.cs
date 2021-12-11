@@ -24,6 +24,23 @@ namespace SQBuilder.Tests
 
         [TestCategory("Select")]
         [TestCategory("From")]
+        [TestCategory("WhereConditional")]
+        [TestMethod]
+        public void SelectFromWhereConditional()
+        {
+            var condition = false;
+
+            var query = new SQBuilder()
+                                .Select("*")
+                                .From("dbo.Table1")
+                                .Where("Id = 1", condition);
+
+            Assert.AreEqual("SELECT * " +
+                            "FROM dbo.Table1", query.ToString());
+        }
+
+        [TestCategory("Select")]
+        [TestCategory("From")]
         [TestMethod]
         public void SelectFrom()
         {
@@ -104,6 +121,41 @@ namespace SQBuilder.Tests
             Assert.AreEqual("SELECT * " +
                             "FROM dbo.Table1 P " +
                             "WHERE P.Id IN ('1', '2', '3', '4', '5', '6', '7')", query.ToString());
+        }
+
+        [TestCategory("Select")]
+        [TestCategory("From")]
+        [TestCategory("WhereInConditional")]
+        [TestMethod]
+        public void SelectFromWhereInStringConditional()
+        {
+            var condition = false;
+
+            List<string> ids = new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
+            var query = new SQBuilder()
+                                .Select("*")
+                                .From("dbo.Table1 P")
+                                .Where(ids, "P.Id", condition);
+
+            Assert.AreEqual("SELECT * " +
+                            "FROM dbo.Table1 P", query.ToString());
+        }
+
+        [TestCategory("Select")]
+        [TestCategory("From")]
+        [TestCategory("WhereInConditional")]
+        [TestMethod]
+        public void SelectFromWhereInIntConditional()
+        {
+            var condition = false;
+            List<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
+            var query = new SQBuilder()
+                                .Select("*")
+                                .From("dbo.Table1 P")
+                                .Where(ids, "P.Id", condition);
+
+            Assert.AreEqual("SELECT * " +
+                            "FROM dbo.Table1 P", query.ToString(), condition);
         }
     }
 }
