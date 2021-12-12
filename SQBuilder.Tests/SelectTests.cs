@@ -155,7 +155,64 @@ namespace SQBuilder.Tests
                                 .Where(ids, "P.Id", condition);
 
             Assert.AreEqual("SELECT * " +
-                            "FROM dbo.Table1 P", query.ToString(), condition);
+                            "FROM dbo.Table1 P", query.ToString());
+        }
+
+        [TestCategory("Select")]
+        [TestCategory("From")]
+        [TestCategory("Where")]
+        [TestCategory("GroupBy")]
+        [TestMethod]
+        public void SelectFromWhereGroupBy()
+        {
+            var query = new SQBuilder()
+                                .Select("P.Date, SUM(P.Value)")
+                                .From("dbo.Table1 P")
+                                .Where("P.Id = 1")
+                                .GroupBy("P.Date");
+
+            Assert.AreEqual("SELECT P.Date, SUM(P.Value) " +
+                            "FROM dbo.Table1 P " +
+                            "WHERE P.Id = 1 " +
+                            "GROUP BY P.Date", query.ToString());
+        }
+
+        [TestCategory("Select")]
+        [TestCategory("From")]
+        [TestCategory("Where")]
+        [TestCategory("GroupBy")]
+        [TestCategory("OrderBy")]
+        [TestMethod]
+        public void SelectFromWhereGroupByOrderBy()
+        {
+            var query = new SQBuilder()
+                                .Select("P.Date, SUM(P.Value)")
+                                .From("dbo.Table1 P")
+                                .Where("P.Id = 1")
+                                .GroupBy("P.Date")
+                                .OrderBy("P.Date DESC");
+
+            Assert.AreEqual("SELECT P.Date, SUM(P.Value) " +
+                            "FROM dbo.Table1 P " +
+                            "WHERE P.Id = 1 " +
+                            "GROUP BY P.Date " +
+                            "ORDER BY P.Date DESC", query.ToString());
+        }
+
+        [TestCategory("Select")]
+        [TestCategory("From")]
+        [TestCategory("OrderBy")]
+        [TestMethod]
+        public void SelectFromOrderBy()
+        {
+            var query = new SQBuilder()
+                                .Select("P.Date, P.Id")
+                                .From("dbo.Table1 P")
+                                .OrderBy("P.Date DESC");
+
+            Assert.AreEqual("SELECT P.Date, P.Id " +
+                            "FROM dbo.Table1 P " +
+                            "ORDER BY P.Date DESC", query.ToString());
         }
     }
 }
