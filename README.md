@@ -99,3 +99,31 @@ Console.WriteLine(query.ToString());
 ```SQL
 SELECT P.Id, P.Description FROM dbo.Product P WHERE P.Id --query
 ```
+
+You also can add GROUP BY and ORDER BY in your queries
+
+```C#
+
+var query = new SQLBuilder
+                .Select("P.Id, P.Description")
+                .From("dbo.Product P")
+                .OrderBy("P.Id DESC");
+                
+Console.WriteLine(query.ToString());
+```
+```SQL
+SELECT P.Id, P.Description FROM dbo.Product P WHERE P.Id ORDER BY Id DESC --query
+```
+
+```C#
+
+var query = new SQLBuilder
+                .Select("P.GroupId, SUM(P.Revenue) AS [Revenue]")
+                .From("dbo.Product P")
+                .GroupBy("P.GroupId");
+                
+Console.WriteLine(query.ToString());
+```
+```SQL
+SELECT P.GroupId, SUM(P.Revenue) AS [Revenue] FROM dbo.Product P GROUP BY P.GroupId --query
+```
