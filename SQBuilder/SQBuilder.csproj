@@ -2,11 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <ApplicationIcon>Novo Projeto.ico</ApplicationIcon>
+    <Authors>Jhonattan111</Authors>
+    <Version>1.0.1</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="Novo Projeto.ico" />
-  </ItemGroup>
 
 </Project>

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace SQBuilder
 {
-	public partial class SQBuilder
+	public partial class SQLBuilder
 	{
 		/// <summary>
 		/// Adicione apenas o nome da tabela, a classe adiciona a instrução FROM
 		/// </summary>
 		/// <param name="content"></param>
-		public SQBuilder From(string content)
+		public SQLBuilder From(string content)
 		{
 			_from.Add(content);
 

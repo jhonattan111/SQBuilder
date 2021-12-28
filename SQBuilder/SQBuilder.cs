@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace SQBuilder
 {
-	public partial class SQBuilder
+	public partial class SQLBuilder
 	{
 		private List<string> _select { get; set; }
 		private List<string> _from { get; set; }
@@ -14,7 +14,7 @@ namespace SQBuilder
 		private List<string> _innerJoin { get; set; }
 		private List<string> _groupBy { get; set; }
 		private List<string> _orderBy { get; set; }
-		public SQBuilder()
+		public SQLBuilder()
 		{
 			_select = new List<string>();
 			_from = new List<string>();
@@ -65,5 +65,11 @@ namespace SQBuilder
 			return Regex.Replace(_query, @"\s+", " ", RegexOptions.Multiline).Trim();
 		}
 		#endregion
+
+		private void AddContent(IList<string> _list, string content, bool condition = true)
+        {
+			if (!string.IsNullOrEmpty(content) && condition)
+				_list.Add(content);
+        }
 	}
 }

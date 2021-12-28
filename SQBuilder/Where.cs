@@ -3,15 +3,15 @@ using System.Linq;
 
 namespace SQBuilder
 {
-    public partial class SQBuilder
+    public partial class SQLBuilder
     {
 		/// <summary>
 		/// Adicione apenas as cláusulas, a classe adiciona a instrução WHERE
 		/// </summary>
 		/// <param name="content"></param>
-		public SQBuilder Where(string content)
+		public SQLBuilder Where(string content)
 		{
-			_where.Add(content);
+			AddContent(_where, content);
 
 			return this;
 		}
@@ -21,10 +21,9 @@ namespace SQBuilder
 		/// </summary>
 		/// <param name="content"></param>
 		/// <param name="condition"></param>
-		public SQBuilder Where(string content, bool condition)
+		public SQLBuilder Where(string content, bool condition)
 		{
-			if (condition)
-				_where.Add(content);
+				AddContent(_where, content, condition);
 
 			return this;
 		}
@@ -34,12 +33,12 @@ namespace SQBuilder
 		/// </summary>
 		/// <param name="content"></param>
 		/// <param name="condition"></param>
-		public SQBuilder Where(List<string> content, string column)
+		public SQLBuilder Where(List<string> content, string column)
 		{
 			var list = string.Join("', '", content);
 
 			if (content.Count > 0)
-				_where.Add($"{column} IN ('{list}')");
+				AddContent(_where, $"{column} IN ('{list}')");
 
 			return this;
 		}
@@ -48,8 +47,8 @@ namespace SQBuilder
 		/// Adicione uma lista que será colocada em uma cláusula IN, a classe adiciona a instrução WHERE
 		/// </summary>
 		/// <param name="content"></param>
-		/// <param name="condition"></param>
-		public SQBuilder Where(List<int> content, string column)
+		/// <param name="column"></param>
+		public SQLBuilder Where(List<int> content, string column)
 		{
 			var list = content.Select(d => d.ToString()).ToList();
 
@@ -63,7 +62,7 @@ namespace SQBuilder
 		/// </summary>
 		/// <param name="content"></param>
 		/// <param name="condition"></param>
-		public SQBuilder Where(List<string> content, string column, bool condition)
+		public SQLBuilder Where(List<string> content, string column, bool condition)
 		{
 			if (condition)
 				this.Where(content, column);
@@ -75,8 +74,9 @@ namespace SQBuilder
 		/// Adicione uma lista que será colocada em uma cláusula IN, a classe adiciona a instrução WHERE
 		/// </summary>
 		/// <param name="content"></param>
+		/// <param name="column"></param>
 		/// <param name="condition"></param>
-		public SQBuilder Where(List<int> content, string column, bool condition)
+		public SQLBuilder Where(List<int> content, string column, bool condition)
 		{
 			if (condition)
             {

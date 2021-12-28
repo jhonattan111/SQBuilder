@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace SQBuilder
 {
-	public partial class SQBuilder
+	public partial class SQLBuilder
 	{
 		/// <summary>
 		/// Adicione apenas o nome da tabela, a classe adiciona a instrução GROUP BY
 		/// </summary>
 		/// <param name="content"></param>
-		public SQBuilder GroupBy(string content)
+		public SQLBuilder GroupBy(string content)
 		{
-			_groupBy.Add(content);
+			AddContent(_groupBy, content);
 
 			return this;
 		}

@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace SQBuilder
 {
-	public partial class SQBuilder
+	public partial class SQLBuilder
 	{
 		/// <summary>
 		/// Adicione apenas o nome da tabela e referência ON, a classe adiciona a instrução LEFT JOIN
 		/// </summary>
 		/// <param name="content"></param>
-		public SQBuilder LeftJoin(string content)
+		public SQLBuilder LeftJoin(string content)
 		{
-			_leftJoin.Add(content);
+			AddContent(_leftJoin, content);
 
 			return this;
 		}
