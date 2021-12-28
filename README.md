@@ -5,7 +5,7 @@ Class that create a SQL Script dinamically
 
 Use examples
 ```C#
-var query = new SQBuilder
+var query = new SQLBuilder
                 .Select("O.Id, O.Code")
                 .From("dbo.Order O")
                 .Where("O.Id = 1");
@@ -20,7 +20,7 @@ In case like that, this looks like terrible, implement a class to write a simple
 ```C#
 
 bool print = true;
-var query1 = new SQBuilder
+var query1 = new SQLBuilder
                 .Select("O.Id, O.Code")
                 .From("dbo.Order O")
                 .Where("O.Id = 1", print);
@@ -43,7 +43,7 @@ You can write a WHERE clause using IN, you can do this with a string or int list
 ```C#
 var strList = new List<string>() {"Mouse", "Keyboard", "HDMI"}
 
-var query = new SQBuilder
+var query = new SQLBuilder
                 .Select("P.Id, P.Description")
                 .From("dbo.Product P")
                 .Where(strList, "P.Description");
@@ -57,7 +57,7 @@ SELECT P.Id, P.Description FROM dbo.Product P WHERE P.Description IN ('Mouse', '
 ```C#
 var intList = new List<int>() {1, 2, 3, 4, 5}
 
-var query = new SQBuilder
+var query = new SQLBuilder
                 .Select("P.Id, P.Description")
                 .From("dbo.Product P")
                 .Where(intList, "P.Id");
@@ -74,7 +74,7 @@ And you can do it conditionally
 var condition = false;
 var strList = new List<string>() {"Mouse", "Keyboard", "HDMI"}
 
-var query = new SQBuilder
+var query = new SQLBuilder
                 .Select("P.Id, P.Description")
                 .From("dbo.Product P")
                 .Where(strList, "P.Description", condition);
@@ -89,7 +89,7 @@ SELECT P.Id, P.Description FROM dbo.Product P --query
 var condition = false;
 var intList = new List<int>() {1, 2, 3, 4, 5}
 
-var query = new SQBuilder
+var query = new SQLBuilder
                 .Select("P.Id, P.Description")
                 .From("dbo.Product P")
                 .Where(intList, "P.Id", condition);
