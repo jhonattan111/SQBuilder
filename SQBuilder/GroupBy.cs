@@ -14,7 +14,7 @@ namespace SQBuilder
 		/// <param name="content"></param>
 		public SQLBuilder GroupBy(string content)
 		{
-			AddContent(_groupBy, content);
+			_groupBy.AddContent(content);
 
 			return this;
 		}

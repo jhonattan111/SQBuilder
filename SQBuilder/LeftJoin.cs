@@ -14,7 +14,8 @@ namespace SQBuilder
 		/// <param name="content"></param>
 		public SQLBuilder LeftJoin(string content)
 		{
-			AddContent(_leftJoin, content);
+			if(!string.IsNullOrWhiteSpace(content))
+				_join.AddContent($"LEFT JOIN {content}");
 
 			return this;
 		}

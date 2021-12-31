@@ -14,7 +14,7 @@ namespace SQBuilder
 		/// <param name="content"></param>
 		public SQLBuilder OrderBy(string content)
 		{
-			AddContent(_orderBy, content);
+			_orderBy.AddContent(content);
 
 			return this;
 		}

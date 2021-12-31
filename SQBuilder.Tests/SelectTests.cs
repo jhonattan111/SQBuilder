@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SQBuilder.Tests.Models;
 using System.Collections.Generic;
 
 namespace SQBuilder.Tests
@@ -228,6 +229,58 @@ namespace SQBuilder.Tests
 
             Assert.AreEqual("SELECT * " +
                             "FROM dbo.Table1 P", query.ToString());
+        }
+
+        [TestCategory("Select")]
+        [TestCategory("Where")]
+        [TestMethod]
+        public void SelectT()
+        {
+            var query = new SQLBuilder()
+                            .Select<Company>("P")
+                            .From("dbo.Table1 P")
+                            .Where("");
+
+            Assert.AreEqual("SELECT P.Id, P.Name, P.Adress " +
+                            "FROM dbo.Table1 P", query.ToString());
+        }
+
+        [TestCategory("Select")]
+        [TestCategory("Where")]
+        [TestMethod]
+        public void SelectTWithouArgument()
+        {
+            var query = new SQLBuilder()
+                            .Select<Company>()
+                            .From("dbo.Table1 P")
+                            .Where("");
+
+            Assert.AreEqual("SELECT Id, Name, Adress " +
+                            "FROM dbo.Table1 P", query.ToString());
+        }
+
+        [TestCategory("Select")]
+        [TestCategory("From")]
+        [TestCategory("Where")]
+        [TestCategory("LeftJoin")]
+        [TestCategory("InnerJoin")]
+        [TestMethod]
+        public void JoinOrderPositions()
+        {
+            var query = new SQLBuilder()
+                                .Select("T1.*")
+                                .From("dbo.Table1 T1")
+                                .LeftJoin("dbo.Table2 T2 ON T1.Id = T2.T1Id")
+                                .InnerJoin("dbo.Table3 T3 ON T2.Id = T3.T2Id")
+                                .LeftJoin("dbo.Table4 T4 ON T3.Id = T4.T3Id")
+                                .Where("T1.Id = 1");
+
+            Assert.AreEqual("SELECT T1.* " +
+                            "FROM dbo.Table1 T1 " +
+                            "LEFT JOIN dbo.Table2 T2 ON T1.Id = T2.T1Id " +
+                            "INNER JOIN dbo.Table3 T3 ON T2.Id = T3.T2Id " +
+                            "LEFT JOIN dbo.Table4 T4 ON T3.Id = T4.T3Id " +
+                            "WHERE T1.Id = 1", query.ToString());
         }
     }
 }

@@ -11,7 +11,7 @@ namespace SQBuilder
 		/// <param name="content"></param>
 		public SQLBuilder Where(string content)
 		{
-			AddContent(_where, content);
+			_where.AddContent(content);
 
 			return this;
 		}
@@ -23,7 +23,7 @@ namespace SQBuilder
 		/// <param name="condition"></param>
 		public SQLBuilder Where(string content, bool condition)
 		{
-				AddContent(_where, content, condition);
+				_where.AddContent(content, condition);
 
 			return this;
 		}
@@ -38,7 +38,7 @@ namespace SQBuilder
 			var list = string.Join("', '", content);
 
 			if (content.Count > 0)
-				AddContent(_where, $"{column} IN ('{list}')");
+				_where.AddContent($"{column} IN ('{list}')");
 
 			return this;
 		}

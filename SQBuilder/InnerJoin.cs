@@ -8,7 +8,8 @@
 		/// <param name="content"></param>
 		public SQLBuilder InnerJoin(string content)
 		{
-			AddContent(_innerJoin, content);
+			if (!string.IsNullOrWhiteSpace(content))
+				_join.AddContent($"INNER JOIN {content}");
 
 			return this;
 		}
