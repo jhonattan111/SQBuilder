@@ -38,6 +38,27 @@ Console.WriteLine(query2.ToString());
 SELECT O.Id, O.Code FROM dbo.Order O WHERE O.Id = 1 --query1
 SELECT O.Id, O.Code FROM dbo.Order O --query2
 ```
+If you have a class that represents your sql columns you can simply add a Select<T> and generate a script with all your atributes, with a parameter that represents your column, or without a argument
+  
+```C#
+var query = new SQLBuilder()
+              .Select<Company>("P")
+              .From("dbo.Table1 P")
+              .Where("");
+                
+                
+var query2 = new SQLBuilder()
+              .Select<Company>()
+              .From("dbo.Table1 P")
+              .Where("");
+                
+Console.WriteLine(query1.ToString());
+Console.WriteLine(query2.ToString());
+```
+```SQL
+SELECT P.Id, P.Name, P.Adress FROM dbo.Table1 P --query1
+SELECT Id, Name, Adress FROM dbo.Table1 P --query2
+```
 
 You can write a WHERE clause using IN, you can do this with a string or int list
 ```C#
