@@ -41,7 +41,7 @@ namespace SQBuilder
 
 			foreach (var field in content)
 				_select.AddContent(field);
-
+			
 			return this;
         }
 

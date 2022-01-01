@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +24,18 @@ namespace SQBuilder
             string separator = string.IsNullOrWhiteSpace(table) ? "" : ".";
 
             foreach(var column in objProperties.GetProperties())
-                fields.Add($"{table}{separator}{column.Name}");
+            {
+                string columnName = string.Empty;
+                var customColumnName = (ColumnNameAttribute)Attribute.GetCustomAttribute(column, typeof(ColumnNameAttribute));
+
+                if (customColumnName != null)
+                    columnName = customColumnName.GetColumnName();
+
+                if (string.IsNullOrWhiteSpace(columnName))
+                    fields.Add($"{table}{separator}{column.Name}");
+                else
+                    fields.Add($"{table}{separator}{columnName} AS {column.Name}");
+            }
 
             return fields;
         }

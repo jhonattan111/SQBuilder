@@ -260,6 +260,37 @@ namespace SQBuilder.Tests
         }
 
         [TestCategory("Select")]
+        [TestCategory("Where")]
+        [TestMethod]
+        public void Select2TWithouArgument()
+        {
+            var query = new SQLBuilder()
+                            .Select<Company>()
+                            .Select<Employee>("E")
+                            .From("dbo.Table1 P")
+                            .LeftJoin("dbo.Employee E")
+                            .Where("");
+
+            Assert.AreEqual("SELECT Id, Name, Adress, E.i_employee AS Id, E.name_emp AS Name " +
+                            "FROM dbo.Table1 P " +
+                            "LEFT JOIN dbo.Employee E", query.ToString());
+        }
+
+        [TestCategory("Select")]
+        [TestCategory("Where")]
+        [TestMethod]
+        public void SelectTCustomColumnName()
+        {
+            var query = new SQLBuilder()
+                            .Select<Employee>("E")
+                            .From("dbo.Employee E")
+                            .Where("");
+
+            Assert.AreEqual("SELECT E.i_employee AS Id, E.name_emp AS Name " +
+                            "FROM dbo.Employee E", query.ToString());
+        }
+
+        [TestCategory("Select")]
         [TestCategory("From")]
         [TestCategory("Where")]
         [TestCategory("LeftJoin")]
