@@ -4,6 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
     <Authors>Jhonattan111</Authors>
     <Version>1.0.3</Version>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jhonattan111/SQBuilder</RepositoryUrl>
+    <PackageTags>sql builder; sql; sqbuilder; build sql; </PackageTags>
   </PropertyGroup>
 
 </Project>
