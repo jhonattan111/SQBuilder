@@ -148,3 +148,26 @@ Console.WriteLine(query.ToString());
 ```SQL
 SELECT P.GroupId, SUM(P.Revenue) AS [Revenue] FROM dbo.Product P GROUP BY P.GroupId --query
 ```
+In classes that contain properties with names differents of database you can add a annotation to allows the select based on annotation name
+  
+```C#
+internal class Employee
+  {
+      [ColumnName("i_employee")]
+      public int Id { get; set; }
+      [ColumnName("name_emp")]
+      public string Name { get; set; }
+  }
+```
+```C#
+var query = new SQLBuilder
+              .Select<Employee>()
+              .From("dbo.employee E");
+                
+Console.WriteLine(query.ToString());
+```
+```SQL
+SELECT i_employee AS Id, name_emp AS Name FROM dbo.employee E --query
+```
+
+
