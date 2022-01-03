@@ -15,6 +15,7 @@ namespace SQBuilder
 		private List<string> _groupBy { get; set; }
 		private List<string> _orderBy { get; set; }
 		private List<string> _having { get; set; }
+		private int _top { get; set; }
 		public SQLBuilder()
 		{
 			_select = new List<string>();
@@ -36,6 +37,7 @@ namespace SQBuilder
 			AssemblyWhere();
 			AssemblyGroupBy();
 			AssemblyOrderBy();
+			AssemblyHaving();
 
 			return Regex.Replace(_query, @"\s+", " ", RegexOptions.Multiline).Trim();
 		}
@@ -45,6 +47,9 @@ namespace SQBuilder
         {
 			if (_select.Count > 0)
 				_query += " SELECT ";
+
+			if (_top > 0)
+				_query += $"TOP {_top}";
 
 			_query += string.Join(@", ", _select.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
@@ -85,6 +90,14 @@ namespace SQBuilder
 				_query += " ORDER BY ";
 
 			_query += string.Join(@", ", _orderBy.Where(d => !string.IsNullOrWhiteSpace(d)));
+		}
+
+		public void AssemblyHaving()
+		{
+			if (_having.Count > 0)
+				_query += " HAVING ";
+
+			_query += string.Join(@" AND ", _where.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
 	}
 }
