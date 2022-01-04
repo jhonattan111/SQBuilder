@@ -157,6 +157,8 @@ internal class Employee
       public int Id { get; set; }
       [ColumnName("name_emp")]
       public string Name { get; set; }
+      [IgnoreColumn]
+      public string Adress {get; set;}
   }
 ```
 ```C#
