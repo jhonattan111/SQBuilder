@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SQBuilder
+namespace SQBuilder.Attributes
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class ColumnNameAttribute : Attribute

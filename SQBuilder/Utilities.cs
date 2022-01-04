@@ -1,9 +1,7 @@
-﻿using System;
+﻿using SQBuilder.Attributes;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SQBuilder
 {
@@ -26,7 +24,11 @@ namespace SQBuilder
             foreach(var column in objProperties.GetProperties())
             {
                 string columnName = string.Empty;
-                var customColumnName = (ColumnNameAttribute)Attribute.GetCustomAttribute(column, typeof(ColumnNameAttribute));
+                var customColumnName = GetAttribute<ColumnNameAttribute>(column);
+                var IgnoreColumn = GetAttribute<IgnoreColumnAttribute>(column);
+
+                if (IgnoreColumn != null && IgnoreColumn.GetIgnoreColumn())
+                    continue;
 
                 if (customColumnName != null)
                     columnName = customColumnName.GetColumnName();
@@ -38,6 +40,13 @@ namespace SQBuilder
             }
 
             return fields;
+        }
+
+        private static T GetAttribute<T>(PropertyInfo propertyInfo) where T : Attribute
+        {
+            var attr = (T)Attribute.GetCustomAttribute(propertyInfo, typeof(T));
+
+            return attr;
         }
     }
 }

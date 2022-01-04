@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SQBuilder.Attributes;
 
 namespace SQBuilder.Tests.Models
 {
@@ -12,5 +8,7 @@ namespace SQBuilder.Tests.Models
         public int Id { get; set; }
         [ColumnName("name_emp")]
         public string Name { get; set; }
+        [IgnoreColumn]
+        public string Adress { get; set; }
     }
 }
