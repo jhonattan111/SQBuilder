@@ -7,9 +7,6 @@ namespace SQBuilder.Tests
     [TestClass]
     public class Select
     {
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("Where")]
         [TestMethod]
         public void SelectFromWhere()
         {
@@ -23,9 +20,6 @@ namespace SQBuilder.Tests
                             "WHERE Id = 1", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("WhereConditional")]
         [TestMethod]
         public void SelectFromWhereConditional()
         {
@@ -40,8 +34,6 @@ namespace SQBuilder.Tests
                             "FROM dbo.Table1", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("From")]
         [TestMethod]
         public void SelectFrom()
         {
@@ -54,45 +46,6 @@ namespace SQBuilder.Tests
                             "FROM dbo.Table1 P", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("InnerJoin")]
-        [TestCategory("Where")]
-        [TestMethod]
-        public void SelectFromInnerJoinWhere()
-        {
-            var query = new SQLBuilder()
-                                .Select("P.Id")
-                                .Select("P.Column1")
-                                .From("dbo.Table1 P")
-                                .InnerJoin("dbo.Table2 C ON C.Id = P.ColumnId");
-
-            Assert.AreEqual("SELECT P.Id, P.Column1 " +
-                            "FROM dbo.Table1 P " +
-                            "INNER JOIN dbo.Table2 C ON C.Id = P.ColumnId", query.ToString());
-        }
-
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("leftJoin")]
-        [TestCategory("Where")]
-        [TestMethod]
-        public void SelectFromLeftJoinWhere()
-        {
-            var query = new SQLBuilder()
-                                .Select("P.Id")
-                                .Select("P.Column1")
-                                .From("dbo.Table1 P")
-                                .LeftJoin("dbo.Table2 C ON C.Id = P.ColumnId");
-
-            Assert.AreEqual("SELECT P.Id, P.Column1 " +
-                            "FROM dbo.Table1 P " +
-                            "LEFT JOIN dbo.Table2 C ON C.Id = P.ColumnId", query.ToString());
-        }
-
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("WhereIn")]
         [TestMethod]
         public void SelectFromWhereInString()
         {
@@ -107,9 +60,6 @@ namespace SQBuilder.Tests
                             "WHERE P.Id IN ('1', '2', '3', '4', '5', '6', '7')", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("WhereIn")]
         [TestMethod]
         public void SelectFromWhereInInt()
         {
@@ -124,9 +74,6 @@ namespace SQBuilder.Tests
                             "WHERE P.Id IN ('1', '2', '3', '4', '5', '6', '7')", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("WhereInConditional")]
         [TestMethod]
         public void SelectFromWhereInStringConditional()
         {
@@ -142,9 +89,6 @@ namespace SQBuilder.Tests
                             "FROM dbo.Table1 P", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("WhereInConditional")]
         [TestMethod]
         public void SelectFromWhereInIntConditional()
         {
@@ -159,10 +103,6 @@ namespace SQBuilder.Tests
                             "FROM dbo.Table1 P", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("Where")]
-        [TestCategory("GroupBy")]
         [TestMethod]
         public void SelectFromWhereGroupBy()
         {
@@ -178,11 +118,6 @@ namespace SQBuilder.Tests
                             "GROUP BY P.Date", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("Where")]
-        [TestCategory("GroupBy")]
-        [TestCategory("OrderBy")]
         [TestMethod]
         public void SelectFromWhereGroupByOrderBy()
         {
@@ -200,9 +135,6 @@ namespace SQBuilder.Tests
                             "ORDER BY P.Date DESC", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("OrderBy")]
         [TestMethod]
         public void SelectFromOrderBy()
         {
@@ -216,9 +148,6 @@ namespace SQBuilder.Tests
                             "ORDER BY P.Date DESC", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("Where")]
         [TestMethod]
         public void SelectWithoutWhere()
         {
@@ -231,8 +160,6 @@ namespace SQBuilder.Tests
                             "FROM dbo.Table1 P", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("Where")]
         [TestMethod]
         public void SelectT()
         {
@@ -245,8 +172,6 @@ namespace SQBuilder.Tests
                             "FROM dbo.Table1 P", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("Where")]
         [TestMethod]
         public void SelectTWithouArgument()
         {
@@ -259,8 +184,6 @@ namespace SQBuilder.Tests
                             "FROM dbo.Table1 P", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("Where")]
         [TestMethod]
         public void Select2TWithouArgument()
         {
@@ -276,8 +199,6 @@ namespace SQBuilder.Tests
                             "LEFT JOIN dbo.Employee E", query.ToString());
         }
 
-        [TestCategory("Select")]
-        [TestCategory("Where")]
         [TestMethod]
         public void SelectTCustomColumnName()
         {
@@ -288,30 +209,6 @@ namespace SQBuilder.Tests
 
             Assert.AreEqual("SELECT E.i_employee AS Id, E.name_emp AS Name " +
                             "FROM dbo.Employee E", query.ToString());
-        }
-
-        [TestCategory("Select")]
-        [TestCategory("From")]
-        [TestCategory("Where")]
-        [TestCategory("LeftJoin")]
-        [TestCategory("InnerJoin")]
-        [TestMethod]
-        public void JoinOrderPositions()
-        {
-            var query = new SQLBuilder()
-                                .Select("T1.*")
-                                .From("dbo.Table1 T1")
-                                .LeftJoin("dbo.Table2 T2 ON T1.Id = T2.T1Id")
-                                .InnerJoin("dbo.Table3 T3 ON T2.Id = T3.T2Id")
-                                .LeftJoin("dbo.Table4 T4 ON T3.Id = T4.T3Id")
-                                .Where("T1.Id = 1");
-
-            Assert.AreEqual("SELECT T1.* " +
-                            "FROM dbo.Table1 T1 " +
-                            "LEFT JOIN dbo.Table2 T2 ON T1.Id = T2.T1Id " +
-                            "INNER JOIN dbo.Table3 T3 ON T2.Id = T3.T2Id " +
-                            "LEFT JOIN dbo.Table4 T4 ON T3.Id = T4.T3Id " +
-                            "WHERE T1.Id = 1", query.ToString());
         }
     }
 }

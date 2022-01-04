@@ -24,6 +24,7 @@ namespace SQBuilder
 			_join = new List<string>();
 			_groupBy = new List<string>();
 			_orderBy = new List<string>();
+			_having = new List<string>();
 		}
 
         #region Tranformar em uma consulta
@@ -36,8 +37,8 @@ namespace SQBuilder
 			AssemblyJoin();
 			AssemblyWhere();
 			AssemblyGroupBy();
-			AssemblyOrderBy();
 			AssemblyHaving();
+			AssemblyOrderBy();
 
 			return Regex.Replace(_query, @"\s+", " ", RegexOptions.Multiline).Trim();
 		}
@@ -49,7 +50,7 @@ namespace SQBuilder
 				_query += " SELECT ";
 
 			if (_top > 0)
-				_query += $"TOP {_top}";
+				_query += $" TOP {_top} ";
 
 			_query += string.Join(@", ", _select.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
@@ -97,7 +98,7 @@ namespace SQBuilder
 			if (_having.Count > 0)
 				_query += " HAVING ";
 
-			_query += string.Join(@" AND ", _where.Where(d => !string.IsNullOrWhiteSpace(d)));
+			_query += string.Join(@" AND ", _having.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
 	}
 }
