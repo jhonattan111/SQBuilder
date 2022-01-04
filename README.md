@@ -15,6 +15,44 @@ Console.WriteLine(query.ToString());
 ```SQL
 SELECT O.Id, O.Code FROM dbo.Order O WHERE O.Id = 1 --query
 ```
+With .Top(int num) you can add a TOP clause to your code
+
+```C#
+var query = new SQLBuilder
+                .Select("O.Id, O.Code")
+                .From("dbo.Order O")
+                .Top(10)
+                .Where("O.Id = 1");
+                
+Console.WriteLine(query.ToString());
+```
+```SQL
+SELECT TOP 10 O.Id, O.Code FROM dbo.Order O WHERE O.Id = 1 --query
+```
+
+SQLBuilder has support for INNER JOIN, LEFT JOIN and RIGHT JOIN
+
+```C#
+    var query = new SQLBuilder()
+      .Select("T1.*")
+      .From("dbo.Table1 T1")
+      .LeftJoin("dbo.Table2 T2 ON T1.Id = T2.T1Id")
+      .InnerJoin("dbo.Table3 T3 ON T2.Id = T3.T2Id")
+      .LeftJoin("dbo.Table4 T4 ON T3.Id = T4.T3Id")
+      .RightJoin("dbo.Table5 T5 ON T4.Id = T5.T4Id")
+      .Where("T1.Id = 1");
+```
+```SQL
+    SELECT T1.*
+    FROM dbo.Table1 T1
+    LEFT JOIN dbo.Table2 T2 ON T1.Id = T2.T1Id
+    INNER JOIN dbo.Table3 T3 ON T2.Id = T3.T2Id
+    LEFT JOIN dbo.Table4 T4 ON T3.Id = T4.T3Id
+    RIGHT JOIN dbo.Table5 T5 ON T4.Id = T5.T4Id
+    WHERE T1.Id = 1
+```
+
+
 In case like that, this looks like terrible, implement a class to write a simple script. The power comes with classes like where that you can define with a bool if add that clause
 
 ```C#
@@ -148,6 +186,28 @@ Console.WriteLine(query.ToString());
 ```SQL
 SELECT P.GroupId, SUM(P.Revenue) AS [Revenue] FROM dbo.Product P GROUP BY P.GroupId --query
 ```
+SQLBuilder has support for HAVING clause
+
+```C#
+
+var query = new SQLBuilder()
+              .Select("O.Date, SUM(O.Revenue")
+              .From("dbo.Order O")
+              .GroupBy("O.Date")
+              .OrderBy("O.Date DESC")
+              .Having("SUM(O.Revenue)");
+                
+Console.WriteLine(query.ToString());
+```
+```SQL
+  SELECT O.Date, SUM(O.Revenue 
+  FROM dbo.Order O 
+  GROUP BY O.Date 
+  HAVING SUM(O.Revenue) 
+  ORDER BY O.Date DESC --query
+```
+
+  
 In classes that contain properties with names differents of database you can add a annotation to allows the select based on annotation name
   
 ```C#
@@ -161,6 +221,8 @@ internal class Employee
       public string Adress {get; set;}
   }
 ```
+  You can use [ColumnName] to set your column name in db, or if you cant use some propertie you simply use [IgnoreColumn] and it will be ignored
+  
 ```C#
 var query = new SQLBuilder
               .Select<Employee>()
