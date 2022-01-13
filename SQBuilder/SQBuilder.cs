@@ -57,9 +57,10 @@ namespace SQBuilder
 
 		public void AssemblyFrom()
 		{
-			if (_from.Count > 0)
-				foreach (var item in _from)
-					_query += $" FROM {item} ";
+			if (_select.Count > 0)
+				_query += " FROM ";
+
+			_query += string.Join(@", ", _from.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
 
 		public void AssemblyJoin()

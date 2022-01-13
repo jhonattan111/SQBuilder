@@ -15,7 +15,7 @@ namespace SQBuilder
 		public SQLBuilder RightJoin(string content)
 		{
 			if (!string.IsNullOrWhiteSpace(content))
-				_join.AddContent($"RIGHT JOIN {content}");
+				_join.AddContent($" RIGHT JOIN {content}");
 
 			return this;
 		}

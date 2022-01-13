@@ -9,7 +9,7 @@
 		public SQLBuilder InnerJoin(string content)
 		{
 			if (!string.IsNullOrWhiteSpace(content))
-				_join.AddContent($"INNER JOIN {content}");
+				_join.AddContent($" INNER JOIN {content}");
 
 			return this;
 		}
