@@ -8,6 +8,7 @@ namespace SQBuilder
 	public partial class SQLBuilder
 	{
 		private string _query { get; set; }
+		private List<string> _queries { get; set; }
 		private List<string> _select { get; set; }
 		private List<string> _from { get; set; }
 		private List<string> _where { get; set; }
@@ -25,13 +26,29 @@ namespace SQBuilder
 			_groupBy = new List<string>();
 			_orderBy = new List<string>();
 			_having = new List<string>();
+			_queries = new List<string>();
 		}
 
-        #region Tranformar em uma consulta
-        public override string ToString()
+		public SQLBuilder(string query)
+		{
+			_select = new List<string>();
+			_from = new List<string>();
+			_where = new List<string>();
+			_join = new List<string>();
+			_groupBy = new List<string>();
+			_orderBy = new List<string>();
+			_having = new List<string>();
+			_queries = new List<string>();
+
+			_queries.Add(query);
+		}
+
+		#region Tranformar em uma consulta
+		public override string ToString()
 		{
 			_query = string.Empty;
 
+			AssemblyUnion();
 			AssemblySelect();
 			AssemblyFrom();
 			AssemblyJoin();
@@ -43,6 +60,12 @@ namespace SQBuilder
 			return Regex.Replace(_query, @"\s+", " ", RegexOptions.Multiline).Trim();
 		}
 		#endregion
+
+		public void AssemblyUnion()
+        {
+			if (_queries.Count > 0)
+            _query += string.Join(@" ", _queries.Where(d => !string.IsNullOrWhiteSpace(d)));
+		}
 
 		public void AssemblySelect()
         {
