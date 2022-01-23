@@ -234,4 +234,38 @@ Console.WriteLine(query.ToString());
 SELECT i_employee AS Id, name_emp AS Name FROM dbo.employee E --query
 ```
 
-
+UNION AND UNION ALL
+SQbuilder can generate sql script with UNION and UNION ALL only adding .Union() and UnionAll() between queries.
+  
+```C#
+var query = new SQLBuilder()
+              .Select("P.Id, P.Name")
+              .From("dbo.Table1 P")
+              .Union()
+              .Select("T.Id, T.Name")
+              .From("dbo.Table2 T");
+  
+Console.WriteLine(query.ToString());
+```
+```SQL
+SELECT P.Id, P.Name FROM dbo.Table1 P 
+UNION 
+SELECT T.Id, T.Name FROM dbo.Table2 T --query
+```
+```C#
+var query = new SQLBuilder()
+              .Select("P.Id, P.Name")
+              .From("dbo.Table1 P")
+              .UnionAll()
+              .Select("T.Id, T.Name")
+              .From("dbo.Table2 T");
+  
+Console.WriteLine(query.ToString());
+```
+```SQL
+SELECT P.Id, P.Name FROM dbo.Table1 P 
+UNION ALL
+SELECT T.Id, T.Name FROM dbo.Table2 T --query
+```
+  
+You can add more than one Union and UnionAll clauses, inclusivelly you can add both
