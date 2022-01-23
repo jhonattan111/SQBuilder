@@ -268,4 +268,4 @@ UNION ALL
 SELECT T.Id, T.Name FROM dbo.Table2 T --query
 ```
   
-You can add more than one Union and UnionAll clauses, including you can add both
+You can add more than one Union and UnionAll clauses, you can even add both
