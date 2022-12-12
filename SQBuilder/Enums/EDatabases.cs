@@ -1,4 +1,4 @@
-﻿namespace SQBuilder
+﻿namespace SQBuilder.Enums
 {
     public enum EDatabases : int
     {

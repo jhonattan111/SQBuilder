@@ -4,16 +4,15 @@ using System.Reflection;
 
 namespace SQBuilder
 {
-    public partial class SQLBuilder
+    public abstract partial class ScriptBuilder : IScriptBuilder
     {
 		/// <summary>
 		/// Adicione apenas as colunas, a classe adiciona a instrução SELECT
 		/// </summary>
 		/// <param name="content"></param>
-		public SQLBuilder Select(string content)
+		public IScriptBuilder Select(string content)
 		{
 			_select.AddContent(content);
-
 			return this;
 		}
 
@@ -21,7 +20,7 @@ namespace SQBuilder
 		/// Adicione uma lista de colunas, a classe adiciona a instrução SELECT
 		/// </summary>
 		/// <param name="content"></param>
-		public SQLBuilder Select(List<string> content)
+		public IScriptBuilder Select(IEnumerable<string> content)
 		{
 			foreach(var field in content)
 				_select.AddContent(field);
@@ -30,15 +29,13 @@ namespace SQBuilder
 		}
 
 		/// <summary>
-		/// O Select<typeparamref name="T"/> foi pensado para construir a query baseada nas propriedades do seu objeto, o parâmetro que vc precisa passar é a coluna que ele está contido
+		/// O Select <typeparamref name="TModel"/> foi pensado para construir a query baseada nas propriedades do seu objeto, o parâmetro que vc precisa passar é a coluna que ele está contido
 		/// </summary>
 		/// <param name="content"></param>
-		public SQLBuilder Select<T>(string table = "") where T : class
-        {
-			var query = Activator.CreateInstance<T>();
-
+		public IScriptBuilder Select<TModel>(string table = "") where TModel : class
+        {	
+			var query = Activator.CreateInstance<TModel>();
 			var content = query.ReadFields(table);
-
 			foreach (var field in content)
 				_select.AddContent(field);
 			

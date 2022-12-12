@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace SQBuilder
 {
-	public partial class SQLBuilder
-	{
+	public abstract partial class ScriptBuilder : IScriptBuilder
+    {
 		/// <summary>
-		/// O numero de elementos a ser tragos na query
+		/// Adicione apenas a condição, a classe adiciona a instrução HAVING
 		/// </summary>
 		/// <param name="content"></param>
-		public SQLBuilder Top(int top)
+		public IScriptBuilder Having(string content)
 		{
-			_top = top;
-
+			_having.AddContent(content);
 			return this;
 		}
 	}

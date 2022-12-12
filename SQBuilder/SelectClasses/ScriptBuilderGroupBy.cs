@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace SQBuilder
 {
-	public partial class SQLBuilder
-	{
+    public abstract partial class ScriptBuilder : IScriptBuilder
+    {
 		/// <summary>
-		/// Adicione apenas a condição, a classe adiciona a instrução HAVING
+		/// Adicione apenas o nome da tabela, a classe adiciona a instrução GROUP BY
 		/// </summary>
 		/// <param name="content"></param>
-		public SQLBuilder Having(string content)
-		{
-			_having.AddContent(content);
+		public IScriptBuilder GroupBy(string content)
+		{	
+			_groupBy.AddContent(content);
 
 			return this;
 		}

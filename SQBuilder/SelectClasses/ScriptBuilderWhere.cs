@@ -3,16 +3,15 @@ using System.Linq;
 
 namespace SQBuilder
 {
-    public partial class SQLBuilder
+    public abstract partial class ScriptBuilder : IScriptBuilder
     {
 		/// <summary>
 		/// Adicione apenas as cláusulas, a classe adiciona a instrução WHERE
 		/// </summary>
 		/// <param name="content"></param>
-		public SQLBuilder Where(string content)
+		public IScriptBuilder Where(string content)
 		{
 			_where.AddContent(content);
-
 			return this;
 		}
 
@@ -21,10 +20,9 @@ namespace SQBuilder
 		/// </summary>
 		/// <param name="content"></param>
 		/// <param name="condition"></param>
-		public SQLBuilder Where(string content, bool condition)
+		public IScriptBuilder Where(string content, bool condition)
 		{
-				_where.AddContent(content, condition);
-
+			_where.AddContent(content, condition);
 			return this;
 		}
 
@@ -33,7 +31,7 @@ namespace SQBuilder
 		/// </summary>
 		/// <param name="content"></param>
 		/// <param name="condition"></param>
-		public SQLBuilder Where(List<string> content, string column)
+		public IScriptBuilder Where(List<string> content, string column)
 		{
 			var list = string.Join("', '", content);
 
@@ -48,7 +46,7 @@ namespace SQBuilder
 		/// </summary>
 		/// <param name="content"></param>
 		/// <param name="column"></param>
-		public SQLBuilder Where(List<int> content, string column)
+		public IScriptBuilder Where(List<int> content, string column)
 		{
 			var list = content.Select(d => d.ToString()).ToList();
 
@@ -62,7 +60,7 @@ namespace SQBuilder
 		/// </summary>
 		/// <param name="content"></param>
 		/// <param name="condition"></param>
-		public SQLBuilder Where(List<string> content, string column, bool condition)
+		public IScriptBuilder Where(List<string> content, string column, bool condition)
 		{
 			if (condition)
 				this.Where(content, column);
@@ -76,13 +74,12 @@ namespace SQBuilder
 		/// <param name="content"></param>
 		/// <param name="column"></param>
 		/// <param name="condition"></param>
-		public SQLBuilder Where(List<int> content, string column, bool condition)
+		public IScriptBuilder Where(List<int> content, string column, bool condition)
 		{
 			if (condition)
             {
 				var list = content.Select(d => d.ToString()).ToList();
-
-				this.Where(list, column);
+				Where(list, column);
 			}
 
 			return this;

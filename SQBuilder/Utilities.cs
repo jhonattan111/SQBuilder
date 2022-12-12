@@ -1,4 +1,5 @@
 ﻿using SQBuilder.Attributes;
+using SQBuilder.Enums;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -7,6 +8,12 @@ namespace SQBuilder
 {
     internal static class Utilities
     {
+        internal static void AddContent(this IList<Tuple<EJoinTypes, string>> _list, Tuple<EJoinTypes, string> content, bool condition = true)
+        {
+            if (!string.IsNullOrEmpty(content.Item2) && condition)
+                _list.Add(content);
+        }
+
         internal static void AddContent(this IList<string> _list, string content, bool condition = true)
         {
             if (!string.IsNullOrEmpty(content) && condition)
@@ -42,9 +49,9 @@ namespace SQBuilder
             return fields;
         }
 
-        private static T GetAttribute<T>(PropertyInfo propertyInfo) where T : Attribute
+        private static TModel GetAttribute<TModel>(PropertyInfo propertyInfo) where TModel : Attribute
         {
-            var attr = (T)Attribute.GetCustomAttribute(propertyInfo, typeof(T));
+            var attr = (TModel)Attribute.GetCustomAttribute(propertyInfo, typeof(TModel));
 
             return attr;
         }

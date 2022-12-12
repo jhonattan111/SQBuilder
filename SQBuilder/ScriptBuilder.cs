@@ -2,49 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using SQBuilder.Enums;
 
 namespace SQBuilder
 {
-	public partial class SQLBuilder
-	{
-		private string _query { get; set; }
-		private List<string> _queries { get; set; }
-		private List<string> _select { get; set; }
-		private List<string> _from { get; set; }
-		private List<string> _where { get; set; }
-		private List<string> _join { get; set; }
-		private List<string> _groupBy { get; set; }
-		private List<string> _orderBy { get; set; }
-		private List<string> _having { get; set; }
-		private int _top { get; set; }
-		public SQLBuilder()
+    public abstract partial class ScriptBuilder : IScriptBuilder
+    {
+		protected string _query { get; set; }
+		protected List<string> _queries { get; set; }
+		protected List<string> _select { get; set; }
+		protected List<string> _from { get; set; }
+		protected List<string> _where { get; set; }
+		protected List<Tuple<EJoinTypes, string>> _join { get; set; }
+		protected List<string> _groupBy { get; set; }
+		protected List<string> _orderBy { get; set; }
+		protected List<string> _having { get; set; }
+		protected int _top { get; set; }
+		public ScriptBuilder()
 		{
-			_select = new List<string>();
-			_from = new List<string>();
-			_where = new List<string>();
-			_join = new List<string>();
-			_groupBy = new List<string>();
-			_orderBy = new List<string>();
-			_having = new List<string>();
-			_queries = new List<string>();
-		}
+			InicitiateLists();
+            _queries = new List<string>();
+        }
 
-		public SQLBuilder(string query)
+		public void InicitiateLists()
 		{
-			_select = new List<string>();
-			_from = new List<string>();
-			_where = new List<string>();
-			_join = new List<string>();
-			_groupBy = new List<string>();
-			_orderBy = new List<string>();
-			_having = new List<string>();
-			_queries = new List<string>();
-
-			_queries.Add(query);
-		}
+            _select = new List<string>();
+            _from = new List<string>();
+            _where = new List<string>();
+            _join = new List<Tuple<EJoinTypes, string>>();
+            _groupBy = new List<string>();
+            _orderBy = new List<string>();
+            _having = new List<string>();
+        }
 
 		#region Tranformar em uma consulta
-		public override string ToString()
+		public virtual string ToScript()
 		{
 			_query = string.Empty;
 
@@ -61,7 +53,7 @@ namespace SQBuilder
 		}
 		#endregion
 
-		public void AssemblyUnion()
+		public virtual void AssemblyUnion()
         {
 			if (_queries.Count > 0)
             _query += string.Join(@" ", _queries.Where(d => !string.IsNullOrWhiteSpace(d)));
@@ -124,5 +116,5 @@ namespace SQBuilder
 
 			_query += string.Join(@" AND ", _having.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
-	}
+    }
 }
