@@ -9,4 +9,8 @@
     <PackageTags>sql builder; sql; sqbuilder; build sql; </PackageTags>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+
 </Project>

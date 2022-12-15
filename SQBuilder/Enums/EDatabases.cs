@@ -2,9 +2,9 @@
 {
     public enum EDatabases : int
     {
-        SQLServer = 0,
-        PostgreeSQL = 1,
-        MySQL = 2,
-        Sybase = 3,
+        SQLServer = 1,
+        PostgreeSQL = 2,
+        MySQL = 4,
+        Sybase = 8,
     }
 }

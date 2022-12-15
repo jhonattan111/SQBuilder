@@ -1,0 +1,12 @@
+﻿{
+  "SqlServer": {
+    "DefaultSchema": "dbo",
+    "InicialDelimiter": "[",
+    "FinalDelimiter": "]"
+  },
+  "MySql": {
+    "DefaultSchema": "",
+    "InicialDelimiter": "`",
+    "FinalDelimiter": "`"
+  }
+}

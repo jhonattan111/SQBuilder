@@ -1,7 +1,11 @@
-﻿using SQBuilder.Attributes;
+﻿using Newtonsoft.Json;
+using SQBuilder.Attributes;
 using SQBuilder.Enums;
+using SQBuilder.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace SQBuilder
@@ -14,18 +18,25 @@ namespace SQBuilder
                 _list.Add(content);
         }
 
+        internal static TModel DeserializeJson<TModel>(string filePath) where TModel : class 
+        {
+            var data = File.ReadAllText(filePath);
+            TModel deserialized = JsonConvert.DeserializeObject<List<TModel>>(data).Where(d => d. ;
+            return deserialized;
+        }
+
         internal static void AddContent(this IList<string> _list, string content, bool condition = true)
         {
             if (!string.IsNullOrEmpty(content) && condition)
                 _list.Add(content);
         }
 
-        internal static List<string> ReadFields(this object obj, string table = "")
+        internal static List<string> ReadFields(this object obj, string table = "", EDatabases database = 0)
         {
             var fields = new List<string>();
 
             var objProperties = obj.GetType();
-
+            QueryConfiguration configurations = DeserializeJson<QueryConfiguration>("./config.json");
             string separator = string.IsNullOrWhiteSpace(table) ? "" : ".";
 
             foreach(var column in objProperties.GetProperties())
@@ -52,7 +63,6 @@ namespace SQBuilder
         private static TModel GetAttribute<TModel>(PropertyInfo propertyInfo) where TModel : Attribute
         {
             var attr = (TModel)Attribute.GetCustomAttribute(propertyInfo, typeof(TModel));
-
             return attr;
         }
     }
