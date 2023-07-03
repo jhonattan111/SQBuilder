@@ -59,7 +59,7 @@ namespace SQBuilder
             _query += string.Join(@" ", _queries.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
 
-		public void AssemblySelect()
+		public virtual void AssemblySelect()
         {
 			if (_select.Count > 0)
 				_query += " SELECT ";
@@ -70,7 +70,7 @@ namespace SQBuilder
 			_query += string.Join(@", ", _select.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
 
-		public void AssemblyFrom()
+		public virtual void AssemblyFrom()
 		{
 			if (_select.Count > 0)
 				_query += " FROM ";
@@ -78,14 +78,14 @@ namespace SQBuilder
 			_query += string.Join(@", ", _from.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
 
-		public void AssemblyJoin()
+		public virtual void AssemblyJoin()
         {
 			if (_join.Count > 0)
 				foreach (var item in _join)
 					_query += $"{item} ";
 		}
 
-		public void AssemblyWhere()
+		public virtual void AssemblyWhere()
         {
 			if (_where.Count > 0)
 				_query += " WHERE ";
@@ -93,7 +93,7 @@ namespace SQBuilder
 			_query += string.Join(@" AND ", _where.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
 
-		public void AssemblyGroupBy()
+		public virtual void AssemblyGroupBy()
 		{
 			if (_groupBy.Count > 0)
 				_query += " GROUP BY ";
@@ -101,7 +101,7 @@ namespace SQBuilder
 			_query += string.Join(@", ", _groupBy.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
 
-		public void AssemblyOrderBy()
+		public virtual void AssemblyOrderBy()
 		{
 			if (_orderBy.Count > 0)
 				_query += " ORDER BY ";
@@ -109,7 +109,7 @@ namespace SQBuilder
 			_query += string.Join(@", ", _orderBy.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}
 
-		public void AssemblyHaving()
+		public virtual void AssemblyHaving()
 		{
 			if (_having.Count > 0)
 				_query += " HAVING ";

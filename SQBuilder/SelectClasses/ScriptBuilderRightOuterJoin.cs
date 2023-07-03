@@ -9,7 +9,7 @@ namespace SQBuilder
 		/// Adicione apenas o nome da tabela e referência ON, a classe adiciona a instrução RIGHT JOIN
 		/// </summary>
 		/// <param name="content"></param>
-		public IScriptBuilder RightOuterJoin(string content)
+		public virtual IScriptBuilder RightOuterJoin(string content)
 		{
 			if (!string.IsNullOrWhiteSpace(content))
 				_join.AddContent(Tuple.Create(EJoinTypes.RightOuterJoin, content));
@@ -21,7 +21,7 @@ namespace SQBuilder
         /// Adicione apenas o nome da tabela e referência ON, a classe adiciona a instrução LEFT JOIN
         /// </summary>
         /// <param name="content"></param>
-        public IScriptBuilder RightOuterJoin(string content, string on)
+        public virtual IScriptBuilder RightOuterJoin(string content, string on)
         {
             string clausure = $"{content} ON {on}";
             return RightOuterJoin(clausure);

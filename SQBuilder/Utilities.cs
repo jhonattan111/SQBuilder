@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using SQBuilder.Attributes;
+﻿using SQBuilder.Attributes;
 using SQBuilder.Enums;
 using SQBuilder.Models;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 
 namespace SQBuilder
 {
@@ -18,10 +18,10 @@ namespace SQBuilder
                 _list.Add(content);
         }
 
-        internal static TModel DeserializeJson<TModel>(string filePath) where TModel : class 
+        internal static IEnumerable<TModel> DeserializeJson<TModel>(string filePath) where TModel : class 
         {
             var data = File.ReadAllText(filePath);
-            TModel deserialized = JsonConvert.DeserializeObject<List<TModel>>(data).Where(d => d. ;
+            IEnumerable<TModel> deserialized = JsonSerializer.Deserialize<IEnumerable<TModel>>(data).ToList();
             return deserialized;
         }
 
@@ -31,12 +31,12 @@ namespace SQBuilder
                 _list.Add(content);
         }
 
-        internal static List<string> ReadFields(this object obj, string table = "", EDatabases database = 0)
+        internal static List<string> ReadFields(this object obj, string table = "", EDatabases database = EDatabases.SQLServer)
         {
             var fields = new List<string>();
 
             var objProperties = obj.GetType();
-            QueryConfiguration configurations = DeserializeJson<QueryConfiguration>("./config.json");
+            QueryConfiguration configurations = JsonSerializer.Deserialize<QueryConfiguration>("./config.json");
             string separator = string.IsNullOrWhiteSpace(table) ? "" : ".";
 
             foreach(var column in objProperties.GetProperties())

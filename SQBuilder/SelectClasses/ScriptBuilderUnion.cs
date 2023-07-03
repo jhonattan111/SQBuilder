@@ -6,7 +6,7 @@
 		/// Atribui um conjunto union a query
 		/// </summary>
 		/// <param name="content"></param>
-		public IScriptBuilder Union()
+		public virtual IScriptBuilder Union()
 		{
 			var query = ToScript();
 			query += " UNION ";
@@ -19,7 +19,7 @@
 		/// Atribui um conjunto union all a query
 		/// </summary>
 		/// <param name="content"></param>
-		public IScriptBuilder UnionAll()
+		public virtual IScriptBuilder UnionAll()
 		{
 			var query = ToScript();
 			query += " UNION ALL ";

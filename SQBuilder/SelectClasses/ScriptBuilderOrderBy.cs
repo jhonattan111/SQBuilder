@@ -6,7 +6,7 @@
 		/// Adicione apenas o nome da coluna, a classe adiciona a instrução ORDER BY
 		/// </summary>
 		/// <param name="content"></param>
-		public IScriptBuilder OrderBy(string content)
+		public virtual IScriptBuilder OrderBy(string content)
 		{
 			_orderBy.AddContent(content);
 			return this;

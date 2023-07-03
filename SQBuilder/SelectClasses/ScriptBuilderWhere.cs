@@ -9,18 +9,18 @@ namespace SQBuilder
 		/// Adicione apenas as cláusulas, a classe adiciona a instrução WHERE
 		/// </summary>
 		/// <param name="content"></param>
-		public IScriptBuilder Where(string content)
+		public virtual IScriptBuilder Where(string content)
 		{
 			_where.AddContent(content);
 			return this;
 		}
 
-		/// <summary>
-		/// Adicione apenas as cláusulas e a condição para a inclusão, a classe adiciona a instrução WHERE
-		/// </summary>
-		/// <param name="content"></param>
-		/// <param name="condition"></param>
-		public IScriptBuilder Where(string content, bool condition)
+        /// <summary>
+        /// Adicione apenas as cláusulas e a condição para a inclusão, a classe adiciona a instrução WHERE
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="condition"></param>
+        public virtual IScriptBuilder Where(string content, bool condition)
 		{
 			_where.AddContent(content, condition);
 			return this;
@@ -31,7 +31,7 @@ namespace SQBuilder
 		/// </summary>
 		/// <param name="content"></param>
 		/// <param name="condition"></param>
-		public IScriptBuilder Where(List<string> content, string column)
+		public virtual IScriptBuilder Where(List<string> content, string column)
 		{
 			var list = string.Join("', '", content);
 
@@ -46,11 +46,11 @@ namespace SQBuilder
 		/// </summary>
 		/// <param name="content"></param>
 		/// <param name="column"></param>
-		public IScriptBuilder Where(List<int> content, string column)
+		public virtual IScriptBuilder Where(List<int> content, string column)
 		{
 			var list = content.Select(d => d.ToString()).ToList();
 
-			this.Where(list, column);
+			Where(list, column);
 
 			return this;
 		}
@@ -60,10 +60,10 @@ namespace SQBuilder
 		/// </summary>
 		/// <param name="content"></param>
 		/// <param name="condition"></param>
-		public IScriptBuilder Where(List<string> content, string column, bool condition)
+		public virtual IScriptBuilder Where(List<string> content, string column, bool condition)
 		{
 			if (condition)
-				this.Where(content, column);
+				Where(content, column);
 
 			return this;
 		}
@@ -74,7 +74,7 @@ namespace SQBuilder
 		/// <param name="content"></param>
 		/// <param name="column"></param>
 		/// <param name="condition"></param>
-		public IScriptBuilder Where(List<int> content, string column, bool condition)
+		public virtual IScriptBuilder Where(List<int> content, string column, bool condition)
 		{
 			if (condition)
             {

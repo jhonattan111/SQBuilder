@@ -12,7 +12,7 @@ namespace SQBuilder
 		/// Adicione apenas o nome da tabela, a classe adiciona a instrução GROUP BY
 		/// </summary>
 		/// <param name="content"></param>
-		public IScriptBuilder GroupBy(string content)
+		public virtual IScriptBuilder GroupBy(string content)
 		{	
 			_groupBy.AddContent(content);
 
