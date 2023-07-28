@@ -6,23 +6,15 @@ namespace SQBuilder
     public abstract partial class ScriptBuilder : IScriptBuilder
     {
 		/// <summary>
-		/// Adicione apenas as cláusulas, a classe adiciona a instrução WHERE
-		/// </summary>
-		/// <param name="content"></param>
-		public virtual IScriptBuilder Where(string content)
-		{
-			_where.AddContent(content);
-			return this;
-		}
-
-        /// <summary>
         /// Adicione apenas as cláusulas e a condição para a inclusão, a classe adiciona a instrução WHERE
         /// </summary>
         /// <param name="content"></param>
         /// <param name="condition"></param>
-        public virtual IScriptBuilder Where(string content, bool condition)
+        public virtual IScriptBuilder Where(string content, bool condition = true)
 		{
-			_where.AddContent(content, condition);
+			if(condition)
+				_where.AddContent(content, condition);
+
 			return this;
 		}
 
@@ -33,7 +25,7 @@ namespace SQBuilder
 		/// <param name="condition"></param>
 		public virtual IScriptBuilder Where(List<string> content, string column)
 		{
-			var list = string.Join("', '", content);
+            string list = string.Join("', '", content);
 
 			if (content.Count > 0)
 				_where.AddContent($"{column} IN ('{list}')");
@@ -41,26 +33,12 @@ namespace SQBuilder
 			return this;
 		}
 
-		/// <summary>
-		/// Adicione uma lista que será colocada em uma cláusula IN, a classe adiciona a instrução WHERE
-		/// </summary>
-		/// <param name="content"></param>
-		/// <param name="column"></param>
-		public virtual IScriptBuilder Where(List<int> content, string column)
-		{
-			var list = content.Select(d => d.ToString()).ToList();
-
-			Where(list, column);
-
-			return this;
-		}
-
-		/// <summary>
-		/// Adicione uma lista que será colocada em uma cláusula IN, a classe adiciona a instrução WHERE
-		/// </summary>
-		/// <param name="content"></param>
-		/// <param name="condition"></param>
-		public virtual IScriptBuilder Where(List<string> content, string column, bool condition)
+        /// <summary>
+        /// Adicione uma lista que será colocada em uma cláusula IN, a classe adiciona a instrução WHERE
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="condition"></param>
+        public virtual IScriptBuilder Where(List<string> content, string column, bool condition = true)
 		{
 			if (condition)
 				Where(content, column);
@@ -74,11 +52,11 @@ namespace SQBuilder
 		/// <param name="content"></param>
 		/// <param name="column"></param>
 		/// <param name="condition"></param>
-		public virtual IScriptBuilder Where(List<int> content, string column, bool condition)
+		public virtual IScriptBuilder Where(List<int> content, string column, bool condition = true)
 		{
 			if (condition)
             {
-				var list = content.Select(d => d.ToString()).ToList();
+                List<string> list = content.Select(d => d.ToString()).ToList();
 				Where(list, column);
 			}
 

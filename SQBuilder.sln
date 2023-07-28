@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQBuilder", "SQBuilder\SQBuilder.csproj", "{6CA8BA21-4B86-4206-B7EF-C7BF10B39A62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQBuilder", "SQBuilder\SQBuilder.csproj", "{6CA8BA21-4B86-4206-B7EF-C7BF10B39A62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQBuilder.Tests", "SQBuilder.Tests\SQBuilder.Tests.csproj", "{BC406937-B668-474F-828B-499CF2951A4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQBuilder.Tests", "SQBuilder.Tests\SQBuilder.Tests.csproj", "{BC406937-B668-474F-828B-499CF2951A4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

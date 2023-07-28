@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SQBuilder.Providers.SqlServer;
 using SQBuilder.Tests.Models;
 using System.Linq;
 
@@ -10,40 +11,38 @@ namespace SQBuilder.Tests
         [TestMethod]
         public void SimpleSelectT()
         {
-            var query = new SQLBuilder()
+            IScriptBuilder query = new SqlServerScriptBuilder()
                             .Select<Company>()
                             .From("dbo.Table1 P")
                             .Where("");
 
             Assert.AreEqual("SELECT Id, Name, Adress " +
-                            "FROM dbo.Table1 P", query.ToString());
+                            "FROM dbo.Table1 P", query.ToScript());
         }
 
         [TestMethod]
         public void Select2TWithouArgument()
         {
-            var query = new SQLBuilder()
+            IScriptBuilder query = new SqlServerScriptBuilder()
                             .Select<Company>()
                             .Select<Employee>("E")
                             .From("dbo.Table1 P")
-                            .LeftJoin("dbo.Employee E")
-                            .Where("");
+                            .LeftJoin("dbo.Employee E");
 
             Assert.AreEqual("SELECT Id, Name, Adress, E.i_employee AS Id, E.name_emp AS Name " +
                             "FROM dbo.Table1 P " +
-                            "LEFT JOIN dbo.Employee E", query.ToString());
+                            "LEFT JOIN dbo.Employee E", query.ToScript());
         }
 
         [TestMethod]
         public void SelectTCustomColumnName()
         {
-            var query = new SQLBuilder()
+            IScriptBuilder query = new SqlServerScriptBuilder()
                             .Select<Employee>("E")
-                            .From("dbo.Employee E")
-                            .Where("");
+                            .From("dbo.Employee E");
 
             Assert.AreEqual("SELECT E.i_employee AS Id, E.name_emp AS Name " +
-                            "FROM dbo.Employee E", query.ToString());
+                            "FROM dbo.Employee E", query.ToScript());
         }
     }
 }

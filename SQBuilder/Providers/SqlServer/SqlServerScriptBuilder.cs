@@ -32,7 +32,7 @@ namespace SQBuilder.Providers.SqlServer
         public override void AssemblyJoin()
         {
             if (_join.Count > 0)
-                foreach (var item in _join)
+                foreach (System.Tuple<Enums.EJoinTypes, string> item in _join)
                     _query += $"{item} ";
         }
 

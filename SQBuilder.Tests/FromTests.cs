@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SQBuilder.Providers.SqlServer;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +12,7 @@ namespace SQBuilder.Tests
         [TestMethod]
         public void SelectMultipleFrom()
         {
-            var query = new SQLBuilder()
+            IScriptBuilder query = new SqlServerScriptBuilder()
                                 .Select("*")
                                 .From("dbo.Table1 P")
                                 .From("dbo.Table2 P2");
@@ -24,8 +25,8 @@ namespace SQBuilder.Tests
         [TestMethod]
         public void SelectFromWhereInInt()
         {
-            List<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
-            var query = new SQLBuilder()
+            List<int> ids = new() { 1, 2, 3, 4, 5, 6, 7 };
+            IScriptBuilder query = new SqlServerScriptBuilder()
                                 .Select("*")
                                 .From("dbo.Table1 P")
                                 .Where(ids, "P.Id");
@@ -38,10 +39,10 @@ namespace SQBuilder.Tests
         [TestMethod]
         public void SelectFromWhereInStringConditional()
         {
-            var condition = false;
+            bool condition = false;
 
-            List<string> ids = new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
-            var query = new SQLBuilder()
+            List<string> ids = new() { "1", "2", "3", "4", "5", "6", "7" };
+            IScriptBuilder query = new SqlServerScriptBuilder()
                                 .Select("*")
                                 .From("dbo.Table1 P")
                                 .Where(ids, "P.Id", condition);
@@ -53,9 +54,9 @@ namespace SQBuilder.Tests
         [TestMethod]
         public void SelectFromWhereInIntConditional()
         {
-            var condition = false;
-            List<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
-            var query = new SQLBuilder()
+            bool condition = false;
+            List<int> ids = new() { 1, 2, 3, 4, 5, 6, 7 };
+            IScriptBuilder query = new SqlServerScriptBuilder()
                                 .Select("*")
                                 .From("dbo.Table1 P")
                                 .Where(ids, "P.Id", condition);

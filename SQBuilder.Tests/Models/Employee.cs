@@ -9,6 +9,6 @@ namespace SQBuilder.Tests.Models
         [ColumnName("name_emp")]
         public string Name { get; set; }
         [IgnoreColumn]
-        public string Adress { get; set; }
+        public string Address { get; set; }
     }
 }

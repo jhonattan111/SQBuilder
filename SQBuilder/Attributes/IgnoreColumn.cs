@@ -5,7 +5,7 @@ namespace SQBuilder.Attributes
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class IgnoreColumnAttribute : Attribute
     {
-        private bool _ignoreColumn { get; set; }
+        private readonly bool _ignoreColumn;
 
         public IgnoreColumnAttribute()
         {

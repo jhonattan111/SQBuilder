@@ -2,11 +2,13 @@
   "SqlServer": {
     "DefaultSchema": "dbo",
     "InicialDelimiter": "[",
-    "FinalDelimiter": "]"
+    "FinalDelimiter": "]",
+    "Separator":  "."
   },
   "MySql": {
     "DefaultSchema": "",
     "InicialDelimiter": "`",
-    "FinalDelimiter": "`"
+    "FinalDelimiter": "`",
+    "Separator": "."
   }
 }

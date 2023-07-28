@@ -20,7 +20,7 @@ namespace SQBuilder
 
         internal static IEnumerable<TModel> DeserializeJson<TModel>(string filePath) where TModel : class 
         {
-            var data = File.ReadAllText(filePath);
+            string data = File.ReadAllText(filePath);
             IEnumerable<TModel> deserialized = JsonSerializer.Deserialize<IEnumerable<TModel>>(data).ToList();
             return deserialized;
         }
@@ -33,17 +33,18 @@ namespace SQBuilder
 
         internal static List<string> ReadFields(this object obj, string table = "", EDatabases database = EDatabases.SQLServer)
         {
-            var fields = new List<string>();
+            List<string> fields = new();
 
-            var objProperties = obj.GetType();
+            Type objProperties = obj.GetType();
             QueryConfiguration configurations = JsonSerializer.Deserialize<QueryConfiguration>("./config.json");
             string separator = string.IsNullOrWhiteSpace(table) ? "" : ".";
+            TableNameAttribute customTableName = objProperties.GetCustomAttribute<TableNameAttribute>();
 
-            foreach(var column in objProperties.GetProperties())
+            foreach(PropertyInfo column in objProperties.GetProperties())
             {
                 string columnName = string.Empty;
-                var customColumnName = GetAttribute<ColumnNameAttribute>(column);
-                var IgnoreColumn = GetAttribute<IgnoreColumnAttribute>(column);
+                ColumnNameAttribute customColumnName = GetAttribute<ColumnNameAttribute>(column);
+                IgnoreColumnAttribute IgnoreColumn = GetAttribute<IgnoreColumnAttribute>(column);
 
                 if (IgnoreColumn != null && IgnoreColumn.GetIgnoreColumn())
                     continue;
@@ -62,7 +63,7 @@ namespace SQBuilder
 
         private static TModel GetAttribute<TModel>(PropertyInfo propertyInfo) where TModel : Attribute
         {
-            var attr = (TModel)Attribute.GetCustomAttribute(propertyInfo, typeof(TModel));
+            TModel attr = (TModel)Attribute.GetCustomAttribute(propertyInfo, typeof(TModel));
             return attr;
         }
     }

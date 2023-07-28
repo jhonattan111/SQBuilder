@@ -8,7 +8,7 @@
 		/// <param name="content"></param>
 		public virtual IScriptBuilder From(string content)
 		{
-			_from.Add(content);
+            _from.Add(content);
 			return this;
 		}
 	}

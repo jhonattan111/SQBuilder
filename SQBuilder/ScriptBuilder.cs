@@ -6,8 +6,12 @@ using SQBuilder.Enums;
 
 namespace SQBuilder
 {
-    public abstract partial class ScriptBuilder : IScriptBuilder
-    {
+	public abstract partial class ScriptBuilder : IScriptBuilder
+	{
+		public string Schema { get; private set;}
+		public string InicialDelimiter { get; private set;}
+		public string FinalDelimiter { get; private set;}
+
 		protected string _query { get; set; }
 		protected List<string> _queries { get; set; }
 		protected List<string> _select { get; set; }
@@ -81,7 +85,7 @@ namespace SQBuilder
 		public virtual void AssemblyJoin()
         {
 			if (_join.Count > 0)
-				foreach (var item in _join)
+				foreach (Tuple<EJoinTypes, string> item in _join)
 					_query += $"{item} ";
 		}
 

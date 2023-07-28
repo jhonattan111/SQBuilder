@@ -22,7 +22,7 @@ namespace SQBuilder
 		/// <param name="content"></param>
 		public virtual IScriptBuilder Select(IEnumerable<string> content)
 		{
-			foreach(var field in content)
+			foreach(string field in content)
 				_select.AddContent(field);
 
 			return this;
@@ -34,9 +34,9 @@ namespace SQBuilder
 		/// <param name="content"></param>
 		public IScriptBuilder Select<TModel>(string table = "") where TModel : class
         {	
-			var query = Activator.CreateInstance<TModel>();
-			var content = query.ReadFields(table);
-			foreach (var field in content)
+			TModel query = Activator.CreateInstance<TModel>();
+            List<string> content = query.ReadFields(table);
+			foreach (string field in content)
 				_select.AddContent(field);
 			
 			return this;

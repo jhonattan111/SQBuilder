@@ -4,6 +4,10 @@ namespace SQBuilder
 {
     public interface IScriptBuilder
     {
+
+        string schema { get; }
+        string inicialDelimiter { get; }
+        string finalDelimiter { get; }
         string ToScript();
         IScriptBuilder Select(string content);
         IScriptBuilder Select(IEnumerable<string> content);
@@ -19,13 +23,16 @@ namespace SQBuilder
         IScriptBuilder LeftOuterJoin(string content, string on);
         IScriptBuilder RightOuterJoin(string content);
         IScriptBuilder RightOuterJoin(string content, string on);
-        IScriptBuilder Where(List<int> content, string column, bool condition);
-        IScriptBuilder Where(List<string> content, string column, bool condition);
-        IScriptBuilder Where(List<int> content, string column);
-        IScriptBuilder Where(List<string> content, string column);
+        IScriptBuilder Where(string content, bool condition = true);
+        IScriptBuilder Where(List<int> content, string column, bool condition = true);
+        IScriptBuilder Where(List<string> content, string column, bool condition = true);
         IScriptBuilder Top(int top);
         IScriptBuilder Limit(int limit);
         IScriptBuilder Union();
         IScriptBuilder UnionAll();
+
+        void SetSchema(string schema);
+        void SetInicialDelimiter (string inicialDelimiter);
+        void SetFinalDelimiter(string finalDelimiter);
     }
 }
