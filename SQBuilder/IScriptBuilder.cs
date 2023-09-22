@@ -30,9 +30,5 @@ namespace SQBuilder
         IScriptBuilder Limit(int limit);
         IScriptBuilder Union();
         IScriptBuilder UnionAll();
-
-        void SetSchema(string schema);
-        void SetInicialDelimiter (string inicialDelimiter);
-        void SetFinalDelimiter(string finalDelimiter);
     }
 }

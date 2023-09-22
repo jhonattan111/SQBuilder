@@ -3,7 +3,7 @@ using System;
 
 namespace SQBuilder
 {
-	public abstract partial class ScriptBuilder : IScriptBuilder
+    public abstract partial class ScriptBuilder : IScriptBuilder
     {
 		/// <summary>
 		/// Adicione apenas o nome da tabela e referência ON, a classe adiciona a instrução LEFT JOIN

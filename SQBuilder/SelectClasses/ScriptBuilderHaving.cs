@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SQBuilder
+﻿namespace SQBuilder
 {
-	public abstract partial class ScriptBuilder : IScriptBuilder
+    public abstract partial class ScriptBuilder : IScriptBuilder
     {
 		/// <summary>
 		/// Adicione apenas a condição, a classe adiciona a instrução HAVING

@@ -1,6 +1,6 @@
 ﻿namespace SQBuilder
 {
-	public abstract partial class ScriptBuilder : IScriptBuilder
+    public abstract partial class ScriptBuilder : IScriptBuilder
     {
 		/// <summary>
 		/// Adicione apenas o nome da tabela, a classe adiciona a instrução FROM

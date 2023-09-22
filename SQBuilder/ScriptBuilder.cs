@@ -6,7 +6,7 @@ using SQBuilder.Enums;
 
 namespace SQBuilder
 {
-	public abstract partial class ScriptBuilder : IScriptBuilder
+    public abstract partial class ScriptBuilder : IScriptBuilder
 	{
 		public string Schema { get; private set;}
 		public string InicialDelimiter { get; private set;}

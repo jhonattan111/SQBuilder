@@ -8,7 +8,7 @@
 		/// <param name="content"></param>
 		public virtual IScriptBuilder Union()
 		{
-			var query = ToScript();
+            string query = ToScript();
 			query += " UNION ";
 			_queries.Add(query);
 			InicitiateLists();
@@ -21,7 +21,7 @@
 		/// <param name="content"></param>
 		public virtual IScriptBuilder UnionAll()
 		{
-			var query = ToScript();
+            string query = ToScript();
 			query += " UNION ALL ";
 			_queries.Add(query);
             InicitiateLists();
