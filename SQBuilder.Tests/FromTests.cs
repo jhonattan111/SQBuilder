@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SQBuilder.Providers.SqlServer;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SQBuilder.Tests
 {
@@ -19,7 +18,7 @@ namespace SQBuilder.Tests
 
             Assert.AreEqual("SELECT * " +
                             "FROM dbo.Table1 P, " +
-                            "dbo.Table2 P2", query.ToString()); 
+                            "dbo.Table2 P2", query.ToScript()); 
         }
 
         [TestMethod]
@@ -33,7 +32,7 @@ namespace SQBuilder.Tests
 
             Assert.AreEqual("SELECT * " +
                             "FROM dbo.Table1 P " +
-                            "WHERE P.Id IN ('1', '2', '3', '4', '5', '6', '7')", query.ToString());
+                            "WHERE P.Id IN ('1', '2', '3', '4', '5', '6', '7')", query.ToScript());
         }
 
         [TestMethod]
@@ -48,7 +47,7 @@ namespace SQBuilder.Tests
                                 .Where(ids, "P.Id", condition);
 
             Assert.AreEqual("SELECT * " +
-                            "FROM dbo.Table1 P", query.ToString());
+                            "FROM dbo.Table1 P", query.ToScript());
         }
 
         [TestMethod]
@@ -62,7 +61,7 @@ namespace SQBuilder.Tests
                                 .Where(ids, "P.Id", condition);
 
             Assert.AreEqual("SELECT * " +
-                            "FROM dbo.Table1 P", query.ToString());
+                            "FROM dbo.Table1 P", query.ToScript());
         }
 
     }

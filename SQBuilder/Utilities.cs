@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
+using System.Threading;
 
 namespace SQBuilder
 {
@@ -35,9 +36,11 @@ namespace SQBuilder
             List<string> fields = new();
 
             Type objProperties = obj.GetType();
-            QueryConfiguration configurations = JsonSerializer.Deserialize<QueryConfiguration>("./config.json");
-            string separator = string.IsNullOrWhiteSpace(table) ? "" : ".";
             TableNameAttribute customTableName = objProperties.GetCustomAttribute<TableNameAttribute>();
+            if (!string.IsNullOrEmpty(customTableName?.GetTableName()))
+                table = customTableName?.GetTableName();
+
+            string separator = string.IsNullOrWhiteSpace(table) ? "" : ".";
 
             foreach(PropertyInfo column in objProperties.GetProperties())
             {

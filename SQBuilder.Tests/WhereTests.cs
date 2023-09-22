@@ -1,9 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+using SQBuilder.Providers.SqlServer;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SQBuilder.Tests
 {
@@ -13,58 +10,58 @@ namespace SQBuilder.Tests
         [TestMethod]
         public void SelectFromWhereInString()
         {
-            List<string> ids = new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
-            var query = new SQLBuilder()
+            List<string> ids = new() { "1", "2", "3", "4", "5", "6", "7" };
+            IScriptBuilder query = new SqlServerScriptBuilder()
                                 .Select("*")
                                 .From("dbo.Table1 P")
                                 .Where(ids, "P.Id");
 
             Assert.AreEqual("SELECT * " +
                             "FROM dbo.Table1 P " +
-                            "WHERE P.Id IN ('1', '2', '3', '4', '5', '6', '7')", query.ToString());
+                            "WHERE P.Id IN ('1', '2', '3', '4', '5', '6', '7')", query.ToScript());
         }
 
         [TestMethod]
         public void SelectFromWhereInInt()
         {
-            List<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
-            var query = new SQLBuilder()
+            List<int> ids = new() { 1, 2, 3, 4, 5, 6, 7 };
+            IScriptBuilder query = new SqlServerScriptBuilder()
                                 .Select("*")
                                 .From("dbo.Table1 P")
                                 .Where(ids, "P.Id");
 
             Assert.AreEqual("SELECT * " +
                             "FROM dbo.Table1 P " +
-                            "WHERE P.Id IN ('1', '2', '3', '4', '5', '6', '7')", query.ToString());
+                            "WHERE P.Id IN ('1', '2', '3', '4', '5', '6', '7')", query.ToScript());
         }
 
         [TestMethod]
         public void SelectFromWhereInStringConditional()
         {
-            var condition = false;
+            bool condition = false;
 
-            List<string> ids = new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
-            var query = new SQLBuilder()
+            List<string> ids = new() { "1", "2", "3", "4", "5", "6", "7" };
+            IScriptBuilder query = new SqlServerScriptBuilder()
                                 .Select("*")
                                 .From("dbo.Table1 P")
                                 .Where(ids, "P.Id", condition);
 
             Assert.AreEqual("SELECT * " +
-                            "FROM dbo.Table1 P", query.ToString());
+                            "FROM dbo.Table1 P", query.ToScript());
         }
 
         [TestMethod]
         public void SelectFromWhereInIntConditional()
         {
-            var condition = false;
-            List<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
-            var query = new SQLBuilder()
+            bool condition = false;
+            List<int> ids = new() { 1, 2, 3, 4, 5, 6, 7 };
+            IScriptBuilder query = new SqlServerScriptBuilder()
                                 .Select("*")
                                 .From("dbo.Table1 P")
                                 .Where(ids, "P.Id", condition);
 
             Assert.AreEqual("SELECT * " +
-                            "FROM dbo.Table1 P", query.ToString());
+                            "FROM dbo.Table1 P", query.ToScript());
         }
 
     }

@@ -9,9 +9,10 @@ namespace SQBuilder
 		/// Adicione apenas as colunas, a classe adiciona a instrução SELECT
 		/// </summary>
 		/// <param name="content"></param>
-		public virtual IScriptBuilder Select(string content)
+		public virtual IScriptBuilder Select(string content, uint top = 0)
 		{
-			_select.AddContent(content);
+			SetTop(top);
+            _select.AddContent(content);
 			return this;
 		}
 
@@ -19,9 +20,10 @@ namespace SQBuilder
 		/// Adicione uma lista de colunas, a classe adiciona a instrução SELECT
 		/// </summary>
 		/// <param name="content"></param>
-		public virtual IScriptBuilder Select(IEnumerable<string> content)
+		public virtual IScriptBuilder Select(IEnumerable<string> content, uint top = 0)
 		{
-			foreach(string field in content)
+            SetTop(top);
+            foreach (string field in content)
 				_select.AddContent(field);
 
 			return this;

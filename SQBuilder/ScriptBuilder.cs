@@ -21,14 +21,19 @@ namespace SQBuilder
 		protected List<string> _groupBy { get; set; }
 		protected List<string> _orderBy { get; set; }
 		protected List<string> _having { get; set; }
-		protected int _top { get; set; }
+		protected uint _top { get; set; }
 		public ScriptBuilder()
 		{
-			InicitiateLists();
+            InitiateLists();
             _queries = new List<string>();
         }
 
-		public void InicitiateLists()
+		protected void SetTop(uint top)
+		{
+			if (top > 0) _top = top;
+		}
+
+		public void InitiateLists()
 		{
             _select = new List<string>();
             _from = new List<string>();
@@ -67,9 +72,6 @@ namespace SQBuilder
         {
 			if (_select.Count > 0)
 				_query += " SELECT ";
-
-			if (_top > 0)
-				_query += $" TOP {_top} ";
 
 			_query += string.Join(@", ", _select.Where(d => !string.IsNullOrWhiteSpace(d)));
 		}

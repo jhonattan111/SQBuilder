@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SQBuilder.Providers.SqlServer;
 using SQBuilder.Tests.Models;
-using System.Linq;
 
 namespace SQBuilder.Tests
 {

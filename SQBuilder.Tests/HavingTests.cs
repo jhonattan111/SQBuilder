@@ -1,9 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SQBuilder.Providers.SqlServer;
 
 namespace SQBuilder.Tests
 {
@@ -13,7 +10,7 @@ namespace SQBuilder.Tests
         [TestMethod]
         public void SimpleHaving()
         {
-            var query = new SQLBuilder()
+            IScriptBuilder query = new SqlServerScriptBuilder()
                             .Select("O.Date, SUM(O.Revenue")
                             .From("dbo.Order O")
                             .GroupBy("O.Date")
@@ -24,7 +21,7 @@ namespace SQBuilder.Tests
                             "FROM dbo.Order O " +
                             "GROUP BY O.Date " +
                             "HAVING SUM(O.Revenue) " +
-                            "ORDER BY O.Date DESC", query.ToString());
+                            "ORDER BY O.Date DESC", query.ToScript());
         }
     }
 }

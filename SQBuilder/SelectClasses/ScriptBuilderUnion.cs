@@ -11,7 +11,7 @@
             string query = ToScript();
 			query += " UNION ";
 			_queries.Add(query);
-			InicitiateLists();
+			InitiateLists();
             return this;
 		}
 
@@ -24,7 +24,7 @@
             string query = ToScript();
 			query += " UNION ALL ";
 			_queries.Add(query);
-            InicitiateLists();
+            InitiateLists();
             return this;
 		}
 	}
