@@ -2,10 +2,7 @@
 
 namespace SQBuilder
 {
-    public class ScriptBuilderException : Exception
+    public class ScriptBuilderException() : Exception
     {
-        public ScriptBuilderException()
-        {
-        }
     }
 }

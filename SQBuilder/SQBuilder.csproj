@@ -1,12 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Authors>Jhonattan111</Authors>
-    <Version>1.0.5</Version>
+    <Version>2.0.5</Version>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/jhonattan111/SQBuilder</RepositoryUrl>
     <PackageTags>sql builder; sql; sqbuilder; build sql; </PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Attributes\" />
+  </ItemGroup>
 
 </Project>

@@ -1,12 +1,11 @@
-﻿using SQBuilder.Attributes;
-using SQBuilder.Enums;
+﻿using SQBuilder.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
-using System.Threading;
 
 namespace SQBuilder
 {
@@ -18,7 +17,7 @@ namespace SQBuilder
                 _list.Add(content);
         }
 
-        internal static IEnumerable<TModel> DeserializeJson<TModel>(string filePath) where TModel : class 
+        internal static IEnumerable<TModel> DeserializeJson<TModel>(string filePath) where TModel : class
         {
             string data = File.ReadAllText(filePath);
             IEnumerable<TModel> deserialized = JsonSerializer.Deserialize<IEnumerable<TModel>>(data).ToList();
@@ -33,26 +32,26 @@ namespace SQBuilder
 
         internal static List<string> ReadFields(this object obj, string table = "", EDatabases database = EDatabases.SQLServer)
         {
-            List<string> fields = new();
+            List<string> fields = [];
 
             Type objProperties = obj.GetType();
-            TableNameAttribute customTableName = objProperties.GetCustomAttribute<TableNameAttribute>();
-            if (!string.IsNullOrEmpty(customTableName?.GetTableName()))
-                table = customTableName?.GetTableName();
+            TableAttribute customTableName = objProperties.GetCustomAttribute<TableAttribute>();
+            if (!string.IsNullOrEmpty(customTableName?.Name))
+                table = customTableName?.Name;
 
             string separator = string.IsNullOrWhiteSpace(table) ? "" : ".";
 
-            foreach(PropertyInfo column in objProperties.GetProperties())
+            foreach (PropertyInfo column in objProperties.GetProperties())
             {
                 string columnName = string.Empty;
-                ColumnNameAttribute customColumnName = GetAttribute<ColumnNameAttribute>(column);
-                IgnoreColumnAttribute IgnoreColumn = GetAttribute<IgnoreColumnAttribute>(column);
+                ColumnAttribute customColumnName = GetAttribute<ColumnAttribute>(column);
+                NotMappedAttribute notMapped = GetAttribute<NotMappedAttribute>(column);
 
-                if (IgnoreColumn != null && IgnoreColumn.GetIgnoreColumn())
+                if (notMapped is not null)
                     continue;
 
                 if (customColumnName != null)
-                    columnName = customColumnName.GetColumnName();
+                    columnName = customColumnName.Name;
 
                 if (string.IsNullOrWhiteSpace(columnName))
                     fields.Add($"{table}{separator}{column.Name}");
@@ -63,7 +62,7 @@ namespace SQBuilder
             return fields;
         }
 
-        private static TModel GetAttribute<TModel>(PropertyInfo propertyInfo) where TModel : Attribute
+        internal static TModel GetAttribute<TModel>(PropertyInfo propertyInfo) where TModel : Attribute
         {
             TModel attr = (TModel)Attribute.GetCustomAttribute(propertyInfo, typeof(TModel));
             return attr;
